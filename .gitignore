@@ -1,0 +1,63 @@
+# Node / npm
+node_modules/
+npm-debug.log*
+yarn.lock
+.pnpm-debug.log
+
+# Build outputs (for frontend tools like Vite, Webpack, Next.js)
+dist/
+build/
+.cache/
+*.log
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# JetBrains IDE (WebStorm, PhpStorm, etc.)
+.idea/
+
+# OS Generated Files
+.DS_Store
+Thumbs.db
+
+# System-specific files
+*.swp
+*.swo
+
+# dotenv files (keep secrets out)
+.env
+.env.*
+
+# Drupal or CMS related (if added later)
+sites/default/files/
+sites/default/private/
+settings.php
+files/
+tmp/
+
+# Deployment specific
+.deploy/
+.netlify/
+vercel/
+firebase.json
+*.tar.gz
+
+# Git hooks / extra tooling
+.husky/
+.prettier*
+.eslintrc*
+.stylelintrc*
+.editorconfig
+
+# Static assets cache (if used)
+*.zip
+*.7z
+
+# Log files
+*.log
+
+# Local scripts or backups
+scripts/
+backup/
+*.bak

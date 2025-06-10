@@ -1,0 +1,4 @@
+name: wedding-gallery-v2
+recipe: lamp
+config:
+  webroot: .
