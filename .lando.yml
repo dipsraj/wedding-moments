@@ -1,4 +1,4 @@
-name: wedding-gallery-v2
+name: wedding-moments
 recipe: lamp
 config:
   webroot: .
