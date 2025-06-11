@@ -1,0 +1,14 @@
+# Turn on the rewrite engine
+RewriteEngine On
+
+# Remove .php extension from files
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.php -f
+RewriteRule ^(.*)$ $1.php [NC,L]
+
+# Redirect index.php to root
+RewriteCond %{THE_REQUEST} /index\.php [NC]
+RewriteRule ^index\.php$ / [L,R=301,NC]
+
+# Handle requests for root by serving index.php
+RewriteRule ^$ index.php [L]
