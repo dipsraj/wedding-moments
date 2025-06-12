@@ -135,13 +135,39 @@ if (is_dir($uploadDir)) {
   }
   usort($images, function($a, $b) { return $b['time'] - $a['time']; });
 }
+
+// Dynamic URL for OG tags
+$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+$host = $_SERVER['HTTP_HOST'];
+$baseURL = $protocol . $host;
+$pageURL = $baseURL . $_SERVER['REQUEST_URI'];
+$ogImageURL = $baseURL . '/assets/us.jpg';
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Riya & Dipanjan's Wedding</title>
+
+    <title>Riya & Dipanjan's Wedding Photo Gallery</title>
+    <meta name="description" content="Welcome to the shared wedding photo album for Riya and Dipanjan. Browse, upload, and share beautiful memories from our special day with friends and family.">
+    <meta name="keywords" content="Riya and Dipanjan, wedding, wedding photos, photo gallery, shared album, wedding moments">
+    <link rel="canonical" href="<?php echo $baseURL; ?>/">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="<?php echo $pageURL; ?>">
+    <meta property="og:title" content="Riya & Dipanjan's Wedding Photo Gallery">
+    <meta property="og:description" content="Browse, upload, and share beautiful memories from our special day with friends and family.">
+    <meta property="og:image" content="<?php echo $ogImageURL; ?>">
+    <meta property="og:site_name" content="Riya & Dipanjan's Wedding">
+
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="<?php echo $pageURL; ?>">
+    <meta property="twitter:title" content="Riya & Dipanjan's Wedding Photo Gallery">
+    <meta property="twitter:description" content="Browse, upload, and share beautiful memories from our special day with friends and family.">
+    <meta property="twitter:image" content="<?php echo $ogImageURL; ?>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
@@ -306,7 +332,7 @@ if (is_dir($uploadDir)) {
             <h1>Riya & Dipanjan</h1>
             <h2 class="subtitle">Our Wedding Moments</h2>
             <p>
-                Welcome, dear friends and family! We are so happy to share this day with you. This is our shared digital album, a place to capture and relive the beautiful memories we're all creating together. Please add the moments you've captured and enjoy browsing the photos shared by others.
+                Welcome, dear friends and family! We are so happy to share this day with you. This is our shared digital album, a place to capture and relive the beautiful memories we're all creating together. Please add the moments you've captured and enjoy Browse the photos shared by others.
             </p>
         </div>
     </div>
@@ -318,7 +344,6 @@ if (is_dir($uploadDir)) {
         </div>
         <div>
           <?php if (isset($_SESSION['admin'])): ?>
-              <!-- --- UPDATE: Fixed Admin Logout Link --- -->
               <a href="/?logout=1" class="admin-btn">Admin Logout</a>
           <?php else: ?>
               <button class="admin-btn" onclick="showAdminLogin()">Admin Login</button>
