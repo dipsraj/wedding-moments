@@ -204,12 +204,101 @@ $ogImageURL = $baseURL . '/assets/us.jpg';
         .curtain-2 { width: 2px; height: 120px; top: -10px; right: 35%; background: linear-gradient(to bottom, rgba(255,215,0,0.6), transparent); animation-duration: 10s; animation-delay: 1s; }
         .container { max-width: 1200px; margin: 0 auto; padding: 2rem; position: relative; z-index: 1; }
 
-        .header { display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 4rem; color: #fff; }
+        .header { display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 2rem; color: #fff; }
         .header-image { width: 150px; height: 150px; border-radius: 50%; border: 4px solid rgba(255, 255, 255, 0.8); box-shadow: 0 4px 25px rgba(0,0,0,0.2); margin-bottom: 1.5rem; object-fit: cover; }
         .header h1 { font-family: 'Great Vibes', cursive; font-size: 4rem; font-weight: normal; line-height: 1; margin-bottom: 1.5rem; color: #FFD700; text-shadow: 1px 1px 3px rgba(0,0,0,0.3); }
         .header .subtitle { font-family: 'Merriweather', serif; font-size: 1.2rem; margin-bottom: 2rem; color: rgba(255, 255, 255, 0.95); text-transform: uppercase; letter-spacing: 0.2em; font-weight: 700; text-shadow: 1px 1px 2px rgba(0,0,0,0.2); padding-bottom: 1rem; position: relative; }
         .header .subtitle::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 80px; height: 2px; background: #FFD700; box-shadow: 0 0 10px #FFD700; }
         .header p { font-size: 1.1rem; line-height: 1.7; max-width: 600px; color: rgba(255, 255, 255, 0.9); }
+
+        #countdown-timer {
+            text-align: center;
+            margin: -1rem auto 3rem;
+            padding: 1.5rem;
+            background: rgba(0, 0, 0, 0.15);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            max-width: 800px;
+        }
+        #countdown-timer .timer-message {
+            font-size: 1.1rem;
+            color: #fff;
+            margin-bottom: 1.5rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+        #countdown-timer .timer-inner {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem 1.5rem;
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+        #countdown-timer .timer-inner.row-2 {
+            margin-top: 1rem;
+        }
+        #countdown-timer .time-unit {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            line-height: 1;
+        }
+        #countdown-timer .time-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #FFD700;
+        }
+        #countdown-timer .time-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            opacity: 0.8;
+        }
+        #countdown-timer .total-days {
+            width: 100%;
+            margin-top: 1.5rem;
+            font-size: 1rem;
+            font-style: italic;
+            opacity: 0.9;
+        }
+        /* --- CHANGE START: Confetti and Big Day Modal Styles --- */
+        #confetti-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2000;
+            pointer-events: none;
+        }
+        .big-day-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 2001;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+        }
+        .big-day-content {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            text-align: center;
+            color: #333;
+            font-size: 1.8rem;
+            font-family: 'Great Vibes', cursive;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            animation: fadeIn 0.5s ease-out;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+        /* --- CHANGE END: Confetti and Big Day Modal Styles --- */
+
 
         .controls { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem; padding: 1rem; background: rgba(0,0,0,0.1); border-radius: 15px; }
         .left-controls { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;}
@@ -268,7 +357,6 @@ $ogImageURL = $baseURL . '/assets/us.jpg';
         .no-touch .gallery-item:hover .view-overlay {
             opacity: 1;
         }
-        /* --- CHANGE START: View icon for touch devices --- */
         .touch .gallery-item .view-overlay {
             opacity: 1;
             background: none;
@@ -277,7 +365,6 @@ $ogImageURL = $baseURL . '/assets/us.jpg';
             width: 40px;
             height: 40px;
         }
-        /* --- CHANGE END: View icon for touch devices --- */
 
         .gallery-item:hover { transform: translateY(-5px); box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15); }
 
@@ -370,6 +457,8 @@ $ogImageURL = $baseURL . '/assets/us.jpg';
             .header .subtitle { font-size: 1rem; letter-spacing: 0.15em; }
             .header p { font-size: 1rem; }
             .container { padding: 1rem; }
+            #countdown-timer .time-value { font-size: 2rem; }
+            #countdown-timer .time-label { font-size: 0.7rem; }
             .modal-prev { left: 5px; }
             .modal-next { right: 5px; }
             .modal-close { top: 5px; right: 5px; }
@@ -377,11 +466,9 @@ $ogImageURL = $baseURL . '/assets/us.jpg';
             .view-toggle-btn { display: flex; }
             .gallery { grid-template-columns: repeat(2, 1fr); }
             .gallery.single-column { grid-template-columns: 1fr; }
-            /* --- CHANGE START: Hide view icon on small touch screens --- */
             .touch .gallery-item .view-overlay {
                 display: none;
             }
-            /* --- CHANGE END: Hide view icon on small touch screens --- */
         }
         @media (max-width: 480px) {
             .upload-btn { font-size: 0.9rem; padding: 0.8rem 1.2rem; right: 20px; bottom: 20px; }
@@ -393,6 +480,11 @@ $ogImageURL = $baseURL . '/assets/us.jpg';
             .admin-btn { width: 100%; text-align: center; }
             .gallery { grid-template-columns: 1fr; } /* Default to 1 column on very small screens */
             .gallery.two-columns { grid-template-columns: repeat(2, 1fr); }
+            #countdown-timer .timer-inner { gap: 0.5rem 1rem; }
+            #countdown-timer .time-value { font-size: 1.5rem; }
+            #countdown-timer .timer-inner.row-2 {
+                gap: 1rem 1.2rem;
+            }
         }
     </style>
 </head>
@@ -409,6 +501,10 @@ $ogImageURL = $baseURL . '/assets/us.jpg';
     <div class="parallax-element swinging-curtain curtain-2" data-speed="0.6"></div>
 </div>
 
+<!-- --- CHANGE START: Confetti Canvas --- -->
+<canvas id="confetti-canvas"></canvas>
+<!-- --- CHANGE END: Confetti Canvas --- -->
+
 
 <div class="container">
     <div class="header">
@@ -421,6 +517,8 @@ $ogImageURL = $baseURL . '/assets/us.jpg';
             </p>
         </div>
     </div>
+
+    <div id="countdown-timer"></div>
 
     <div class="controls">
         <div class="left-controls">
@@ -476,6 +574,15 @@ $ogImageURL = $baseURL . '/assets/us.jpg';
 </div>
 
 <div id="toastContainer"></div>
+
+<!-- --- CHANGE START: Big Day Modal --- -->
+<div class="big-day-modal" id="bigDayModal">
+    <div class="big-day-content">
+        The big day is finally here!
+    </div>
+</div>
+<!-- --- CHANGE END: Big Day Modal --- -->
+
 
 <div class="fixed-action-buttons-container">
     <button class="action-btn-fixed" id="downloadSelected" onclick="downloadSelected()">Download Selected</button>
@@ -768,13 +875,11 @@ $ogImageURL = $baseURL . '/assets/us.jpg';
   }
 
   document.addEventListener('DOMContentLoaded', () => {
-    // --- CHANGE START: Correct touch/no-touch detection ---
     if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
       document.body.classList.add('touch');
     } else {
       document.body.classList.add('no-touch');
     }
-    // --- CHANGE END: Correct touch/no-touch detection ---
 
     const urlParams = new URLSearchParams(window.location.search);
 
@@ -818,6 +923,124 @@ $ogImageURL = $baseURL . '/assets/us.jpg';
         }
       });
     }
+
+    const countdownDate = new Date("2026-01-23T00:00:00").getTime();
+    const countdownElement = document.getElementById('countdown-timer');
+    let countdownInterval = null;
+
+    // --- CHANGE START: Confetti Logic ---
+    const confettiCanvas = document.getElementById('confetti-canvas');
+    const confettiCtx = confettiCanvas.getContext('2d');
+    let confettiParticles = [];
+    const confettiColors = ['#FFD700', '#FF6347', '#ADFF2F', '#87CEFA', '#DA70D6'];
+
+    function startConfetti() {
+      confettiCanvas.width = window.innerWidth;
+      confettiCanvas.height = window.innerHeight;
+      for (let i = 0; i < 150; i++) {
+        confettiParticles.push({
+          x: Math.random() * confettiCanvas.width,
+          y: Math.random() * confettiCanvas.height - confettiCanvas.height,
+          size: Math.random() * 8 + 2,
+          speed: Math.random() * 5 + 2,
+          color: confettiColors[Math.floor(Math.random() * confettiColors.length)],
+          angle: Math.random() * 360,
+          spin: Math.random() < 0.5 ? -1 : 1
+        });
+      }
+      animateConfetti();
+    }
+
+    function animateConfetti() {
+      confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+      confettiParticles.forEach((p, i) => {
+        p.y += p.speed;
+        p.x += Math.sin(p.angle * Math.PI / 180);
+        p.angle += p.spin * 2;
+
+        confettiCtx.fillStyle = p.color;
+        confettiCtx.beginPath();
+        confettiCtx.rect(p.x, p.y, p.size, p.size);
+        confettiCtx.fill();
+
+        if (p.y > confettiCanvas.height) {
+          confettiParticles.splice(i, 1);
+        }
+      });
+      if (confettiParticles.length > 0) {
+        requestAnimationFrame(animateConfetti);
+      }
+    }
+    // --- CHANGE END: Confetti Logic ---
+
+
+    function updateCountdown() {
+      const now = new Date();
+      const target = new Date(countdownDate);
+      const distance = target - now;
+
+      if (distance < 0) {
+        clearInterval(countdownInterval);
+        startConfetti();
+        const bigDayModal = document.getElementById('bigDayModal');
+        bigDayModal.style.display = 'flex';
+        setTimeout(() => {
+          bigDayModal.style.display = 'none';
+          countdownElement.style.display = 'none';
+        }, 4000);
+        return;
+      }
+
+      const totalDays = Math.floor(distance / (1000 * 60 * 60 * 24));
+
+      let months = (target.getFullYear() - now.getFullYear()) * 12 + (target.getMonth() - now.getMonth());
+
+      let tempNow = new Date(now);
+      tempNow.setMonth(tempNow.getMonth() + months);
+
+      if (tempNow > target) {
+        months--;
+      }
+
+      tempNow = new Date(now);
+      tempNow.setMonth(tempNow.getMonth() + months);
+
+      let remainingDistance = target - tempNow;
+      let remainingDays = Math.floor(remainingDistance / (1000 * 60 * 60 * 24));
+
+      const weeks = Math.floor(remainingDays / 7);
+      const days = remainingDays % 7;
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      let timerHTML = '<div class="timer-message">The countdown to our wedding begins!</div>';
+
+      let topRow = '';
+      if (months > 0) topRow += `<div class="time-unit"><span class="time-value">${months}</span><span class="time-label">Months</span></div>`;
+      if (weeks > 0) topRow += `<div class="time-unit"><span class="time-value">${weeks}</span><span class="time-label">Weeks</span></div>`;
+      if (days > 0) topRow += `<div class="time-unit"><span class="time-value">${days}</span><span class="time-label">Days</span></div>`;
+
+      let bottomRow = '';
+      if (hours > 0) bottomRow += `<div class="time-unit"><span class="time-value">${hours}</span><span class="time-label">Hours</span></div>`;
+      if (minutes > 0) bottomRow += `<div class="time-unit"><span class="time-value">${minutes}</span><span class="time-label">Minutes</span></div>`;
+      bottomRow += `<div class="time-unit"><span class="time-value">${seconds}</span><span class="time-label">Seconds</span></div>`;
+
+      if(topRow) {
+        timerHTML += `<div class="timer-inner">${topRow}</div>`;
+      }
+      timerHTML += `<div class="timer-inner row-2">${bottomRow}</div>`;
+
+      if(totalDays > 0) {
+        timerHTML += `<div class="total-days">( Total ${totalDays} days left )</div>`;
+      }
+
+      countdownElement.innerHTML = timerHTML;
+    }
+
+    updateCountdown();
+    countdownInterval = setInterval(updateCountdown, 1000);
+
   });
 </script>
 </body>
