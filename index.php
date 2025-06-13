@@ -100,18 +100,24 @@ function createThumbnail($source, $destination, $width = 400, $height = 300) {
 
   $originalWidth = imagesx($image);
   $originalHeight = imagesy($image);
-  $ratio = min($width / $originalWidth, $height / $originalHeight);
+  $ratio = max($width / $originalWidth, $height / $originalHeight); // Use max for cover effect
   $newWidth = $originalWidth * $ratio;
   $newHeight = $originalHeight * $ratio;
-  $thumbnail = imagecreatetruecolor($newWidth, $newHeight);
+
+  // Center crop
+  $x_mid = $newWidth / 2;
+  $y_mid = $newHeight / 2;
+
+  $thumbnail = imagecreatetruecolor($width, $height);
 
   if ($mime == 'image/png' || $mime == 'image/gif') {
     imagealphablending($thumbnail, false);
     imagesavealpha($thumbnail, true);
     $transparent = imagecolorallocatealpha($thumbnail, 255, 255, 255, 127);
-    imagefilledrectangle($thumbnail, 0, 0, $newWidth, $newHeight, $transparent);
+    imagefilledrectangle($thumbnail, 0, 0, $width, $height, $transparent);
   }
-  imagecopyresampled($thumbnail, $image, 0, 0, 0, 0, $newWidth, $newHeight, $originalWidth, $originalHeight);
+  imagecopyresampled($thumbnail, $image, 0, 0, ($x_mid - ($width/2)), ($y_mid - ($height/2)), $newWidth, $newHeight, $originalWidth, $originalHeight);
+
 
   switch ($mime) {
     case 'image/jpeg': imagejpeg($thumbnail, $destination, 85); break;
@@ -201,47 +207,114 @@ $ogImageURL = $baseURL . '/assets/us.jpg';
         .header { display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 4rem; color: #fff; }
         .header-image { width: 150px; height: 150px; border-radius: 50%; border: 4px solid rgba(255, 255, 255, 0.8); box-shadow: 0 4px 25px rgba(0,0,0,0.2); margin-bottom: 1.5rem; object-fit: cover; }
         .header h1 { font-family: 'Great Vibes', cursive; font-size: 4rem; font-weight: normal; line-height: 1; margin-bottom: 1.5rem; color: #FFD700; text-shadow: 1px 1px 3px rgba(0,0,0,0.3); }
-        .header .subtitle {
-            font-family: 'Merriweather', serif;
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            color: rgba(255, 255, 255, 0.95);
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            font-weight: 700;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
-            padding-bottom: 1rem;
-            position: relative;
-        }
-        .header .subtitle::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 2px;
-            background: #FFD700;
-            box-shadow: 0 0 10px #FFD700;
-        }
+        .header .subtitle { font-family: 'Merriweather', serif; font-size: 1.2rem; margin-bottom: 2rem; color: rgba(255, 255, 255, 0.95); text-transform: uppercase; letter-spacing: 0.2em; font-weight: 700; text-shadow: 1px 1px 2px rgba(0,0,0,0.2); padding-bottom: 1rem; position: relative; }
+        .header .subtitle::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 80px; height: 2px; background: #FFD700; box-shadow: 0 0 10px #FFD700; }
         .header p { font-size: 1.1rem; line-height: 1.7; max-width: 600px; color: rgba(255, 255, 255, 0.9); }
 
         .controls { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem; padding: 1rem; background: rgba(0,0,0,0.1); border-radius: 15px; }
+        .left-controls { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;}
+        .right-controls { display: flex; align-items: center; gap: 1rem; }
         .checkbox-toggle { display: flex; align-items: center; gap: 0.5rem; background: rgba(255, 253, 243, 0.9); padding: 0.5rem 1rem; border-radius: 25px; backdrop-filter: blur(10px); }
         .checkbox-toggle label { cursor: pointer; color: #333; }
         .admin-btn { background: rgba(255, 255, 255, 0.2); border: 1px solid rgba(255, 255, 255, 0.3); color: white; padding: 0.5rem 1rem; border-radius: 25px; cursor: pointer; backdrop-filter: blur(10px); transition: all 0.3s ease; text-decoration: none; display: inline-block; }
         .admin-btn:hover { background: rgba(255, 255, 255, 0.3); }
-        .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 120px; }
+
+        .view-toggle-btn {
+            display: none;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+        }
+        .view-toggle-btn:hover { background: rgba(255, 255, 255, 0.4); }
+        .view-toggle-btn svg { width: 22px; height: 22px; stroke: white; }
+
+        .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 120px; transition: grid-template-columns 0.5s ease; }
+        .gallery.two-columns { grid-template-columns: repeat(2, 1fr); }
+        .gallery.single-column { grid-template-columns: 1fr; }
+
         .gallery-item { position: relative; background: rgba(255, 253, 243, 0.95); border-radius: 15px; overflow: hidden; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease, box-shadow 0.3s ease; }
+
+        .gallery-item .view-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+            pointer-events: none;
+        }
+        .gallery-item .view-overlay svg {
+            width: 50px;
+            height: 50px;
+            color: white;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+        }
+        .no-touch .gallery-item:hover .view-overlay {
+            opacity: 1;
+        }
+        /* --- CHANGE START: View icon for touch devices --- */
+        .touch .gallery-item .view-overlay {
+            opacity: 1;
+            background: none;
+        }
+        .touch .gallery-item .view-overlay svg {
+            width: 40px;
+            height: 40px;
+        }
+        /* --- CHANGE END: View icon for touch devices --- */
+
         .gallery-item:hover { transform: translateY(-5px); box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15); }
-        .gallery-item img { width: 100%; height: 200px; object-fit: cover; cursor: pointer; }
-        .image-controls { position: absolute; top: 10px; right: 10px; display: flex; gap: 0.5rem; opacity: 0; transition: opacity 0.3s ease; }
-        .gallery-item:hover .image-controls, .touch .gallery-item .image-controls { opacity: 1; }
+
+        .gallery-item img { display: block; width: 100%; height: 250px; object-fit: cover; cursor: pointer; }
+
+        .image-controls { position: absolute; top: 10px; right: 10px; display: flex; gap: 0.5rem; opacity: 0; transition: opacity 0.3s ease; z-index: 3; }
+        .no-touch .gallery-item:hover .image-controls, .touch .gallery-item .image-controls { opacity: 1; }
         .control-btn { background: rgba(0, 0, 0, 0.7); color: white; border: none; width: 35px; height: 35px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.3s ease; }
         .control-btn:hover { background: rgba(0, 0, 0, 0.9); }
-        .checkbox-overlay { position: absolute; top: 10px; left: 10px; opacity: 0; transition: opacity 0.3s ease; pointer-events: none; }
-        .checkbox-overlay.show { opacity: 1; pointer-events: auto; }
-        .checkbox-overlay input { width: 20px; height: 20px; cursor: pointer; }
+
+        .download-btn .icon-hover { display: none; }
+        .download-btn:hover .icon-default { display: none; }
+        .download-btn:hover .icon-hover { display: block; }
+        .control-btn svg { vertical-align: middle; }
+
+        label.checkbox-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            padding: 12px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            cursor: pointer;
+            z-index: 2;
+        }
+        label.checkbox-overlay.show { opacity: 1; pointer-events: auto; }
+        label.checkbox-overlay input {
+            width: 28px;
+            height: 28px;
+            cursor: pointer;
+            accent-color: #c32424;
+        }
+
         .upload-btn { position: fixed; bottom: 30px; right: 30px; z-index: 100; padding: 1rem 1.5rem; background: linear-gradient(135deg, #FFFDF3, #f8f9fa); border: 3px solid #c32424; border-radius: 50px; color: #8B0000; font-size: 1.1rem; font-weight: 700; cursor: pointer; box-shadow: 0 12px 40px rgba(195, 36, 36, 0.4); transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 1px; animation: pulse 2s infinite; display: flex; align-items: center; gap: 0.5rem; }
         .upload-btn .icon { width: 24px; height: 24px; }
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.03); } 100% { transform: scale(1); } }
@@ -301,13 +374,25 @@ $ogImageURL = $baseURL . '/assets/us.jpg';
             .modal-next { right: 5px; }
             .modal-close { top: 5px; right: 5px; }
             .image-controls { opacity: 1; background: linear-gradient(to top, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0) 100%); bottom: 0; top: auto; left: 0; right: 0; width: 100%; border-radius: 0 0 15px 15px; padding: 0.75rem; justify-content: flex-end; }
+            .view-toggle-btn { display: flex; }
+            .gallery { grid-template-columns: repeat(2, 1fr); }
+            .gallery.single-column { grid-template-columns: 1fr; }
+            /* --- CHANGE START: Hide view icon on small touch screens --- */
+            .touch .gallery-item .view-overlay {
+                display: none;
+            }
+            /* --- CHANGE END: Hide view icon on small touch screens --- */
         }
         @media (max-width: 480px) {
             .upload-btn { font-size: 0.9rem; padding: 0.8rem 1.2rem; right: 20px; bottom: 20px; }
             .fixed-action-buttons-container { left: 20px; right: 20px; bottom: 20px; justify-content: center; }
             .action-btn-fixed { flex-grow: 1; margin: 0 5px; padding: 0.8rem 1rem; font-size: 0.9rem; }
             .controls { flex-direction: column; align-items: stretch; gap: 0.8rem; }
-            .checkbox-toggle, .admin-btn { justify-content: center; width: 100%; }
+            .left-controls { justify-content: space-between; }
+            .right-controls { justify-content: center; }
+            .admin-btn { width: 100%; text-align: center; }
+            .gallery { grid-template-columns: 1fr; } /* Default to 1 column on very small screens */
+            .gallery.two-columns { grid-template-columns: repeat(2, 1fr); }
         }
     </style>
 </head>
@@ -338,11 +423,17 @@ $ogImageURL = $baseURL . '/assets/us.jpg';
     </div>
 
     <div class="controls">
-        <div class="checkbox-toggle">
-            <input type="checkbox" id="enableCheckboxes" onchange="toggleCheckboxes()">
-            <label for="enableCheckboxes">Enable multi-select</label>
+        <div class="left-controls">
+            <div class="checkbox-toggle">
+                <input type="checkbox" id="enableCheckboxes" onchange="toggleCheckboxes()">
+                <label for="enableCheckboxes">Enable multi-select</label>
+            </div>
+            <button class="view-toggle-btn" id="viewToggleBtn" title="Toggle Grid View">
+                <svg class="grid-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect></svg>
+                <svg class="list-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+            </button>
         </div>
-        <div>
+        <div class="right-controls">
           <?php if (isset($_SESSION['admin'])): ?>
               <a href="/?logout=1" class="admin-btn">Admin Logout</a>
           <?php else: ?>
@@ -354,14 +445,20 @@ $ogImageURL = $baseURL . '/assets/us.jpg';
     <div class="gallery" id="gallery">
       <?php foreach ($images as $image): ?>
           <div class="gallery-item">
+              <div class="view-overlay">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+              </div>
               <img src="<?php echo $thumbnailDir . htmlspecialchars($image['name']); ?>"
                    onclick="openModal('<?php echo $uploadDir . htmlspecialchars($image['name']); ?>', <?php echo array_search($image, $images); ?>)"
                    alt="Gallery Image">
-              <div class="checkbox-overlay">
+              <label class="checkbox-overlay" onclick="event.stopPropagation();">
                   <input type="checkbox" class="image-checkbox" value="<?php echo htmlspecialchars($image['name']); ?>" onchange="updateActionButtons()">
-              </div>
+              </label>
               <div class="image-controls">
-                  <button class="control-btn" onclick="event.stopPropagation(); downloadImage('<?php echo $uploadDir . htmlspecialchars($image['name']); ?>', '<?php echo htmlspecialchars($image['name']); ?>')" title="Download">&#x2B07;</button>
+                  <button class="control-btn download-btn" onclick="event.stopPropagation(); downloadImage('<?php echo $uploadDir . htmlspecialchars($image['name']); ?>', '<?php echo htmlspecialchars($image['name']); ?>')" title="Download">
+                      <svg class="icon-default" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                      <svg class="icon-hover" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                  </button>
                 <?php if (isset($_SESSION['admin'])): ?>
                     <button class="control-btn" onclick="event.stopPropagation(); confirmSingleDelete('<?php echo htmlspecialchars($image['name']); ?>')" title="Delete" style="background: rgba(220, 53, 69, 0.8);">&#x1F5D1;</button>
                 <?php endif; ?>
@@ -671,9 +768,13 @@ $ogImageURL = $baseURL . '/assets/us.jpg';
   }
 
   document.addEventListener('DOMContentLoaded', () => {
-    if ('ontouchstart' in window || navigator.maxTouchPoints) {
+    // --- CHANGE START: Correct touch/no-touch detection ---
+    if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
       document.body.classList.add('touch');
+    } else {
+      document.body.classList.add('no-touch');
     }
+    // --- CHANGE END: Correct touch/no-touch detection ---
 
     const urlParams = new URLSearchParams(window.location.search);
 
@@ -693,6 +794,29 @@ $ogImageURL = $baseURL . '/assets/us.jpg';
         const cleanUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
         window.history.replaceState({path:cleanUrl},'',cleanUrl);
       }
+    }
+
+    const viewToggleBtn = document.getElementById('viewToggleBtn');
+    if (viewToggleBtn) {
+      const gallery = document.getElementById('gallery');
+      const gridIcon = viewToggleBtn.querySelector('.grid-icon');
+      const listIcon = viewToggleBtn.querySelector('.list-icon');
+
+      viewToggleBtn.addEventListener('click', () => {
+        let isSingleColumn = gallery.classList.contains('single-column');
+
+        if (window.innerWidth <= 480) { // On very small screens, toggle between 1 and 2
+          gallery.classList.toggle('two-columns');
+          let isTwoCols = gallery.classList.contains('two-columns');
+          gridIcon.style.display = isTwoCols ? 'none' : 'block';
+          listIcon.style.display = isTwoCols ? 'block' : 'none';
+        } else { // On tablet, toggle between 2 and 1
+          gallery.classList.toggle('single-column');
+          isSingleColumn = gallery.classList.contains('single-column');
+          gridIcon.style.display = isSingleColumn ? 'block' : 'none';
+          listIcon.style.display = isSingleColumn ? 'none' : 'block';
+        }
+      });
     }
   });
 </script>
