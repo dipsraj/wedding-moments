@@ -262,7 +262,6 @@ $ogImageURL = $baseURL . '/assets/us.jpg';
             font-style: italic;
             opacity: 0.9;
         }
-        /* --- CHANGE START: Confetti and Big Day Modal Styles --- */
         #confetti-canvas {
             position: fixed;
             top: 0;
@@ -297,7 +296,6 @@ $ogImageURL = $baseURL . '/assets/us.jpg';
             animation: fadeIn 0.5s ease-out;
         }
         @keyframes fadeIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
-        /* --- CHANGE END: Confetti and Big Day Modal Styles --- */
 
 
         .controls { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem; padding: 1rem; background: rgba(0,0,0,0.1); border-radius: 15px; }
@@ -349,10 +347,10 @@ $ogImageURL = $baseURL . '/assets/us.jpg';
             pointer-events: none;
         }
         .gallery-item .view-overlay svg {
-            width: 50px;
-            height: 50px;
-            color: white;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+            width: 40px;
+            height: 40px;
+            color: rgba(255,255,255,0.8);
+            filter: drop-shadow(0 1px 3px rgba(0,0,0,0.6));
         }
         .no-touch .gallery-item:hover .view-overlay {
             opacity: 1;
@@ -362,8 +360,8 @@ $ogImageURL = $baseURL . '/assets/us.jpg';
             background: none;
         }
         .touch .gallery-item .view-overlay svg {
-            width: 40px;
-            height: 40px;
+            width: 32px;
+            height: 32px;
         }
 
         .gallery-item:hover { transform: translateY(-5px); box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15); }
@@ -501,9 +499,7 @@ $ogImageURL = $baseURL . '/assets/us.jpg';
     <div class="parallax-element swinging-curtain curtain-2" data-speed="0.6"></div>
 </div>
 
-<!-- --- CHANGE START: Confetti Canvas --- -->
 <canvas id="confetti-canvas"></canvas>
-<!-- --- CHANGE END: Confetti Canvas --- -->
 
 
 <div class="container">
@@ -544,7 +540,7 @@ $ogImageURL = $baseURL . '/assets/us.jpg';
       <?php foreach ($images as $image): ?>
           <div class="gallery-item">
               <div class="view-overlay">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12,4.5C7,4.5,2.73,7.61,1,12c1.73,4.39,6,7.5,11,7.5s9.27-3.11,11-7.5C21.27,7.61,17,4.5,12,4.5z M12,17c-2.76,0-5-2.24-5-5s2.24-5,5-5s5,2.24,5,5S14.76,17,12,17z M12,9c-1.66,0-3,1.34-3,3s1.34,3,3,3s3-1.34,3-3S13.66,9,12,9z"/></svg>
               </div>
               <img src="<?php echo $thumbnailDir . htmlspecialchars($image['name']); ?>"
                    onclick="openModal('<?php echo $uploadDir . htmlspecialchars($image['name']); ?>', <?php echo array_search($image, $images); ?>)"
@@ -575,13 +571,11 @@ $ogImageURL = $baseURL . '/assets/us.jpg';
 
 <div id="toastContainer"></div>
 
-<!-- --- CHANGE START: Big Day Modal --- -->
 <div class="big-day-modal" id="bigDayModal">
     <div class="big-day-content">
         The big day is finally here!
     </div>
 </div>
-<!-- --- CHANGE END: Big Day Modal --- -->
 
 
 <div class="fixed-action-buttons-container">
@@ -928,7 +922,6 @@ $ogImageURL = $baseURL . '/assets/us.jpg';
     const countdownElement = document.getElementById('countdown-timer');
     let countdownInterval = null;
 
-    // --- CHANGE START: Confetti Logic ---
     const confettiCanvas = document.getElementById('confetti-canvas');
     const confettiCtx = confettiCanvas.getContext('2d');
     let confettiParticles = [];
@@ -971,7 +964,6 @@ $ogImageURL = $baseURL . '/assets/us.jpg';
         requestAnimationFrame(animateConfetti);
       }
     }
-    // --- CHANGE END: Confetti Logic ---
 
 
     function updateCountdown() {
