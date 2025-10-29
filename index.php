@@ -181,48 +181,63 @@ $ogImageURL = $baseURL . '/assets/us.jpg';
         :root { --parallax-y: 0px; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: 'Merriweather', serif;
-            background: linear-gradient(135deg, #c32424 0%, #8B0000 100%);
+            font-family: 'Quicksand', sans-serif;
+            /* UPDATED: Body background changed to the new light gradient */
+            background: linear-gradient(135deg, #fffaf2 0%, #f1e4cc 100%);
             min-height: 100vh;
-            color: #333;
+            color: #333; /* UPDATED: Base text color set to dark gray for readability */
             overflow-x: hidden;
         }
-        @keyframes glow { 0%, 100% { transform: scale(1); box-shadow: 0 0 20px 5px rgba(255, 215, 0, 0.3), 0 0 30px 8px rgba(255, 215, 0, 0.2); opacity: 0.8; } 50% { transform: scale(1.1); box-shadow: 0 0 35px 8px rgba(255, 215, 0, 0.5), 0 0 50px 15px rgba(255, 215, 0, 0.3); opacity: 1; } }
+        /* UPDATED: Glow animation changed from gold to red */
+        @keyframes glow { 0%, 100% { transform: scale(1); box-shadow: 0 0 20px 5px rgba(195, 36, 36, 0.3), 0 0 30px 8px rgba(195, 36, 36, 0.2); opacity: 0.8; } 50% { transform: scale(1.1); box-shadow: 0 0 35px 8px rgba(195, 36, 36, 0.5), 0 0 50px 15px rgba(195, 36, 36, 0.3); opacity: 1; } }
         @keyframes swing { 0% { transform: translateY(var(--parallax-y)) rotate(4deg); } 50% { transform: translateY(var(--parallax-y)) rotate(-4deg); } 100% { transform: translateY(var(--parallax-y)) rotate(4deg); } }
         .parallax-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden; }
         .parallax-element { position: absolute; background-repeat: no-repeat; background-size: contain; transition: transform 0.2s linear; transform: translateY(var(--parallax-y)); will-change: transform; }
         .alpona { opacity: 0.1; }
-        .alpona-1 { width: 200px; height: 200px; top: 10%; left: 5%; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50,5 C74.8,5 95,25.2 95,50 C95,74.8 74.8,95 50,95 C25.2,95 5,74.8 5,50 C5,25.2 25.2,5 50,5 Z M50,15 C30.7,15 15,30.7 15,50 C15,69.3 30.7,85 50,85 C69.3,85 85,69.3 85,50 C85,30.7 69.3,15 50,15 Z' fill='%23FFF'/%3E%3Ccircle cx='50' cy='50' r='10' fill='%23FFF'/%3E%3C/svg%3E"); }
-        .alpona-2 { width: 150px; height: 150px; top: 60%; right: 10%; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 0 C-10 40, -10 60, 50 100 C110 60, 110 40, 50 0 Z' fill='%23FFF'/%3E%3C/svg%3E"); }
-        .alpona-3 { width: 100px; height: 100px; bottom: 5%; left: 25%; opacity: 0.15; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='25' r='15' fill='%23FFF'/%3E%3Ccircle cx='50' cy='75' r='15' fill='%23FFF'/%3E%3Ccircle cx='25' cy='50' r='15' fill='%23FFF'/%3E%3Ccircle cx='75' cy='50' r='15' fill='%23FFF'/%3E%3Ccircle cx='50' cy='50' r='10' fill='%23DAA520' fill-opacity='0.5'/%3E%3C/svg%3E"); }
+        /* UPDATED: Alpona SVG fill changed from white to dark red (#8B0000) to be visible on light bg */
+        .alpona-1 { width: 200px; height: 200px; top: 10%; left: 5%; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50,5 C74.8,5 95,25.2 95,50 C95,74.8 74.8,95 50,95 C25.2,95 5,74.8 5,50 C5,25.2 25.2,5 50,5 Z M50,15 C30.7,15 15,30.7 15,50 C15,69.3 30.7,85 50,85 C69.3,85 85,69.3 85,50 C85,30.7 69.3,15 50,15 Z' fill='%238B0000'/%3E%3Ccircle cx='50' cy='50' r='10' fill='%238B0000'/%3E%3C/svg%3E"); }
+        /* UPDATED: Alpona SVG fill changed from white to dark red (#8B0000) */
+        .alpona-2 { width: 150px; height: 150px; top: 60%; right: 10%; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 0 C-10 40, -10 60, 50 100 C110 60, 110 40, 50 0 Z' fill='%238B0000'/%3E%3C/svg%3E"); }
+        /* UPDATED: Alpona SVG fill changed from white to dark red (#8B0000) and gold to bright red (#c32424) */
+        .alpona-3 { width: 100px; height: 100px; bottom: 5%; left: 25%; opacity: 0.15; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='25' r='15' fill='%238B0000'/%3E%3Ccircle cx='50' cy='75' r='15' fill='%238B0000'/%3E%3Ccircle cx='25' cy='50' r='15' fill='%238B0000'/%3E%3Ccircle cx='75' cy='50' r='15' fill='%238B0000'/%3E%3Ccircle cx='50' cy='50' r='10' fill='%23c32424' fill-opacity='0.5'/%3E%3C/svg%3E"); }
         .glowing-light { border-radius: 50%; animation-name: glow; animation-timing-function: ease-in-out; animation-iteration-count: infinite; }
         .light-1 { width: 15px; height: 15px; top: 20%; right: 20%; animation-duration: 4s; }
         .light-2 { width: 10px; height: 10px; top: 80%; left: 15%; animation-duration: 5s; animation-delay: 1.5s; }
         .light-3 { width: 12px; height: 12px; top: 40%; left: 40%; animation-duration: 3.5s; animation-delay: 0.5s; }
         .swinging-curtain { transform-origin: top center; animation-name: swing; animation-timing-function: ease-in-out; animation-iteration-count: infinite; }
-        .curtain-1 { width: 2px; height: 150px; top: -20px; left: 30%; background: linear-gradient(to bottom, rgba(255,215,0,0.7), transparent); animation-duration: 8s; }
-        .curtain-2 { width: 2px; height: 120px; top: -10px; right: 35%; background: linear-gradient(to bottom, rgba(255,215,0,0.6), transparent); animation-duration: 10s; animation-delay: 1s; }
+        /* UPDATED: Curtain gradient changed from gold to red */
+        .curtain-1 { width: 2px; height: 150px; top: -20px; left: 30%; background: linear-gradient(to bottom, rgba(195, 36, 36, 0.7), transparent); animation-duration: 8s; }
+        /* UPDATED: Curtain gradient changed from gold to red */
+        .curtain-2 { width: 2px; height: 120px; top: -10px; right: 35%; background: linear-gradient(to bottom, rgba(195, 36, 36, 0.6), transparent); animation-duration: 10s; animation-delay: 1s; }
         .container { max-width: 1200px; margin: 0 auto; padding: 2rem; position: relative; z-index: 1; }
 
-        .header { display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 2rem; color: #fff; }
-        .header-image { width: 150px; height: 150px; border-radius: 50%; border: 4px solid rgba(255, 255, 255, 0.8); box-shadow: 0 4px 25px rgba(0,0,0,0.2); margin-bottom: 1.5rem; object-fit: cover; }
-        .header h1 { font-family: 'Great Vibes', cursive; font-size: 4rem; font-weight: normal; line-height: 1; margin-bottom: 1.5rem; color: #FFD700; text-shadow: 1px 1px 3px rgba(0,0,0,0.3); }
-        .header .subtitle { font-family: 'Merriweather', serif; font-size: 1.2rem; margin-bottom: 2rem; color: rgba(255, 255, 255, 0.95); text-transform: uppercase; letter-spacing: 0.2em; font-weight: 700; text-shadow: 1px 1px 2px rgba(0,0,0,0.2); padding-bottom: 1rem; position: relative; }
-        .header .subtitle::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 80px; height: 2px; background: #FFD700; box-shadow: 0 0 10px #FFD700; }
-        .header p { font-size: 1.1rem; line-height: 1.7; max-width: 600px; color: rgba(255, 255, 255, 0.9); }
+        /* UPDATED: Header base color changed from white to dark gray */
+        .header { display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 2rem; color: #333; }
+        /* UPDATED: Header image border changed from white to red */
+        .header-image { width: 150px; height: 150px; border-radius: 50%; border: 4px solid rgba(195, 36, 36, 0.8); box-shadow: 0 4px 25px rgba(0,0,0,0.2); margin-bottom: 1.5rem; object-fit: cover; }
+        /* UPDATED: Header h1 color changed from gold to red */
+        .header h1 { font-family: 'Great Vibes', cursive; font-size: 4rem; font-weight: normal; line-height: 1; margin-bottom: 1.5rem; color: #c32424; text-shadow: 1px 1px 3px rgba(0,0,0,0.3); }
+        /* UPDATED: Subtitle color changed from white to dark red */
+        .header .subtitle { font-family: 'Quicksand', serif; font-size: 1.2rem; margin-bottom: 2rem; color: #8B0000; text-transform: uppercase; letter-spacing: 0.2em; font-weight: 700; text-shadow: 1px 1px 2px rgba(0,0,0,0.2); padding-bottom: 1rem; position: relative; }
+        /* UPDATED: Subtitle underline and shadow changed from gold to red */
+        .header .subtitle::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 80px; height: 2px; background: #c32424; box-shadow: 0 0 10px #c32424; }
+        /* UPDATED: Header paragraph color changed from white to dark gray */
+        .header p { font-size: 1.1rem; line-height: 1.7; max-width: 600px; color: #333; }
 
         #countdown-timer {
             text-align: center;
             margin: -1rem auto 3rem;
             padding: 1.5rem;
-            background: rgba(0, 0, 0, 0.15);
+            /* UPDATED: Background changed from transparent black to a subtle transparent red */
+            background: rgba(195, 36, 36, 0.05);
             border-radius: 15px;
             backdrop-filter: blur(10px);
             max-width: 800px;
         }
         #countdown-timer .timer-message {
             font-size: 1.1rem;
-            color: #fff;
+            /* UPDATED: Text color changed from white to dark gray */
+            color: #333;
             margin-bottom: 1.5rem;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
         }
@@ -232,7 +247,8 @@ $ogImageURL = $baseURL . '/assets/us.jpg';
             align-items: center;
             flex-wrap: wrap;
             gap: 1rem 1.5rem;
-            color: #fff;
+            /* UPDATED: Text color changed from white to a medium gray for labels */
+            color: #555;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
         }
         #countdown-timer .timer-inner.row-2 {
@@ -247,7 +263,8 @@ $ogImageURL = $baseURL . '/assets/us.jpg';
         #countdown-timer .time-value {
             font-size: 2.5rem;
             font-weight: 700;
-            color: #FFD700;
+            /* UPDATED: Time value color changed from gold to red */
+            color: #c32424;
         }
         #countdown-timer .time-label {
             font-size: 0.8rem;
@@ -298,19 +315,23 @@ $ogImageURL = $baseURL . '/assets/us.jpg';
         @keyframes fadeIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
 
 
-        .controls { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem; padding: 1rem; background: rgba(0,0,0,0.1); border-radius: 15px; }
+        /* UPDATED: Controls background changed from transparent black to subtle transparent red */
+        .controls { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem; padding: 1rem; background: rgba(195, 36, 36, 0.05); border-radius: 15px; }
         .left-controls { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;}
         .right-controls { display: flex; align-items: center; gap: 1rem; }
-        .checkbox-toggle { display: flex; align-items: center; gap: 0.5rem; background: rgba(255, 253, 243, 0.9); padding: 0.5rem 1rem; border-radius: 25px; backdrop-filter: blur(10px); }
+        /* UPDATED: Added a light red border for visibility against the light background */
+        .checkbox-toggle { display: flex; align-items: center; gap: 0.5rem; background: rgba(255, 253, 243, 0.9); padding: 0.5rem 1rem; border-radius: 25px; backdrop-filter: blur(10px); border: 1px solid rgba(195, 36, 36, 0.2); }
         .checkbox-toggle label { cursor: pointer; color: #333; }
-        .admin-btn { background: rgba(255, 255, 255, 0.2); border: 1px solid rgba(255, 255, 255, 0.3); color: white; padding: 0.5rem 1rem; border-radius: 25px; cursor: pointer; backdrop-filter: blur(10px); transition: all 0.3s ease; text-decoration: none; display: inline-block; }
-        .admin-btn:hover { background: rgba(255, 255, 255, 0.3); }
+        /* UPDATED: Admin button re-themed with red */
+        .admin-btn { background: rgba(195, 36, 36, 0.1); border: 1px solid rgba(195, 36, 36, 0.3); color: #8B0000; padding: 0.5rem 1rem; border-radius: 25px; cursor: pointer; backdrop-filter: blur(10px); transition: all 0.3s ease; text-decoration: none; display: inline-block; }
+        .admin-btn:hover { background: rgba(195, 36, 36, 0.2); }
 
+        /* UPDATED: View toggle button re-themed with red */
         .view-toggle-btn {
             display: none;
-            background: rgba(255, 255, 255, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            color: white;
+            background: rgba(195, 36, 36, 0.1);
+            border: 1px solid rgba(195, 36, 36, 0.3);
+            color: #8B0000;
             width: 40px;
             height: 40px;
             border-radius: 50%;
@@ -322,8 +343,9 @@ $ogImageURL = $baseURL . '/assets/us.jpg';
             justify-content: center;
             padding: 0;
         }
-        .view-toggle-btn:hover { background: rgba(255, 255, 255, 0.4); }
-        .view-toggle-btn svg { width: 22px; height: 22px; stroke: white; }
+        .view-toggle-btn:hover { background: rgba(195, 36, 36, 0.2); }
+        /* UPDATED: SVG stroke color changed from white to red */
+        .view-toggle-btn svg { width: 22px; height: 22px; stroke: #8B0000; }
 
         .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 120px; transition: grid-template-columns 0.5s ease; }
         .gallery.two-columns { grid-template-columns: repeat(2, 1fr); }
@@ -397,20 +419,23 @@ $ogImageURL = $baseURL . '/assets/us.jpg';
             width: 28px;
             height: 28px;
             cursor: pointer;
-            accent-color: #c32424;
+            accent-color: #c32424; /* KEPT: This is already red */
         }
 
-        .upload-btn { position: fixed; bottom: 30px; right: 30px; z-index: 100; padding: 1rem 1.5rem; background: linear-gradient(135deg, #FFFDF3, #f8f9fa); border: 3px solid #c32424; border-radius: 50px; color: #8B0000; font-size: 1.1rem; font-weight: 700; cursor: pointer; box-shadow: 0 12px 40px rgba(195, 36, 36, 0.4); transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 1px; animation: pulse 2s infinite; display: flex; align-items: center; gap: 0.5rem; }
+        /* KEPT: This button style already fits the new theme perfectly */
+        .upload-btn { position: fixed; bottom: 30px; right: 30px; z-index: 100; padding: 1rem 1.5rem; background: #731414; border: 3px solid #ffe3e3; border-radius: 50px; color: #F1F1F1; font-size: 1.1rem; font-weight: 700; cursor: pointer; box-shadow: 0 12px 40px rgba(195, 36, 36, 0.4); transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 1px; animation: pulse 2s infinite; display: flex; align-items: center; gap: 0.5rem; }
         .upload-btn .icon { width: 24px; height: 24px; }
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.03); } 100% { transform: scale(1); } }
-        .upload-btn:hover { transform: scale(1.05); box-shadow: 0 16px 50px rgba(195, 36, 36, 0.6); background: linear-gradient(135deg, #c32424, #8B0000); color: white; border-color: #DAA520; }
+        /* UPDATED: Hover border color changed from gold to light cream (matching page bg) */
+        .upload-btn:hover { transform: scale(1.05); box-shadow: 0 16px 50px rgba(195, 36, 36, 0.6); background: linear-gradient(135deg, #c32424, #8B0000); color: white; border-color: #fffaf2; }
 
         .fixed-action-buttons-container { position: fixed; bottom: 30px; left: 30px; right: 30px; z-index: 100; display: flex; justify-content: flex-start; gap: 1rem; pointer-events: none; }
         .action-btn-fixed { padding: 1rem 1.5rem; border: none; border-radius: 25px; cursor: pointer; transition: all 0.3s ease; font-size: 1rem; font-weight: bold; opacity: 0; transform: translateY(20px); pointer-events: none; }
         .action-btn-fixed.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
-        #downloadSelected { background: #28a745; color: white; }
-        #downloadSelected:hover { background: #218838; }
-        #deleteSelected { background: #dc3545; color: white; }
+        /* UPDATED: Download button changed from green to red for theme consistency */
+        #downloadSelected { background: #c32424; color: white; }
+        #downloadSelected:hover { background: #8B0000; }
+        #deleteSelected { background: #dc3545; color: white; } /* KEPT: This is a good danger-red */
         #deleteSelected:hover { background: #c82333; }
 
         .modal { display: none; opacity: 0; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.9); z-index: 1000; backdrop-filter: blur(10px); align-items: center; justify-content: center; padding: 1rem; transition: opacity 0.3s ease; }
@@ -419,8 +444,9 @@ $ogImageURL = $baseURL . '/assets/us.jpg';
         .modal-actions-bar { display: flex; gap: 1rem; padding-top: 1.5rem; }
         .modal-action-btn { padding: 0.75rem 1.5rem; border-radius: 50px; border: none; cursor: pointer; font-weight: bold; color: white; transition: transform 0.2s, box-shadow 0.2s; display: flex; align-items: center; gap: 0.5rem; }
         .modal-action-btn:hover { transform: scale(1.05); box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
-        .modal-action-btn.download { background: #28a745; }
-        .modal-action-btn.delete { background: #dc3545; }
+        /* UPDATED: Download button changed from green to red */
+        .modal-action-btn.download { background: #c32424; }
+        .modal-action-btn.delete { background: #dc3545; } /* KEPT: Red */
 
         .modal-nav { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(20, 20, 20, 0.5); color: white; width: 44px; height: 44px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(5px); border: 1px solid rgba(255, 255, 255, 0.2); transition: all 0.3s ease; z-index: 1001; }
         .modal-nav:hover { background: rgba(0, 0, 0, 0.7); transform: translateY(-50%) scale(1.1); }
@@ -433,26 +459,29 @@ $ogImageURL = $baseURL . '/assets/us.jpg';
         .admin-form, .upload-form { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3); width: 90%; max-width: 400px; }
         .admin-form h3, .upload-form h3 { margin-bottom: 1.5rem; text-align: center; }
         .admin-form input { width: 100%; padding: 0.75rem; margin-bottom: 1rem; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; }
+        /* KEPT: Button is already red */
         .admin-form button, .upload-form button { width: 100%; padding: 0.75rem; background: linear-gradient(135deg, #c32424, #8B0000); color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 1rem; margin-bottom: 0.5rem; }
         .file-input-wrapper { position: relative; margin-bottom: 1.5rem; }
         .file-input { position: absolute; opacity: 0; width: 100%; height: 100%; cursor: pointer; }
         .file-input-label { display: block; padding: 2rem; border: 2px dashed #ddd; border-radius: 8px; text-align: center; cursor: pointer; transition: all 0.3s ease; }
+        /* KEPT: Hover state is already red-themed */
         .file-input-label:hover { border-color: #c32424; background: #fff9f9; }
         .selected-files { margin-bottom: 1rem; max-height: 150px; overflow-y: auto; }
         .file-item { display: flex; justify-content: space-between; align-items: center; padding: 0.5rem; background: #f8f9fa; border-radius: 5px; margin-bottom: 0.25rem; font-size: 0.9rem; }
         .file-item .file-name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
         .file-item .file-size { color: #666; font-size: 0.8rem; margin-left: 0.5rem; }
+        /* KEPT: Remove button is already red */
         .remove-file { background: #c32424; color: white; border: none; border-radius: 3px; padding: 0.25rem 0.5rem; cursor: pointer; font-size: 0.8rem; margin-left: 0.5rem; }
         .cancel-btn { background: #6c757d !important; }
 
         .toast-message { position: fixed; top: 20px; right: 20px; color: white; padding: 1rem 1.5rem; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); z-index: 1001; opacity: 0; transform: translateX(120%); transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1); }
         .toast-message.show { opacity: 1; transform: translateX(0); }
-        .toast-success { background: #c32424; }
-        .toast-error { background: #dc3545; }
+        .toast-success { background: #c32424; } /* KEPT: Already red */
+        .toast-error { background: #dc3545; } /* KEPT: Already red */
 
         @media (max-width: 768px) {
             .header h1 { font-size: 3rem; }
-            .header .subtitle { font-size: 1rem; letter-spacing: 0.15em; }
+            .header .subtitle { font-size: 1.3rem; letter-spacing: 0.1em; }
             .header p { font-size: 1rem; }
             .container { padding: 1rem; }
             #countdown-timer .time-value { font-size: 2rem; }
@@ -476,8 +505,10 @@ $ogImageURL = $baseURL . '/assets/us.jpg';
             .left-controls { justify-content: space-between; }
             .right-controls { justify-content: center; }
             .admin-btn { width: 100%; text-align: center; }
-            .gallery { grid-template-columns: 1fr; } /* Default to 1 column on very small screens */
-            .gallery.two-columns { grid-template-columns: repeat(2, 1fr); }
+            .gallery { grid-template-columns: repeat(3, 1fr); } /* UPDATED: Default to 3 columns */
+            .gallery.two-columns { grid-template-columns: 1fr; } /* UPDATED: This now acts as the single-column toggle on mobile */
+            .gallery-item { aspect-ratio: 1 / 1; } /* ADDED: Make items square */
+            .gallery-item img { height: 100%; } /* ADDED: Override fixed height, fill square */
             #countdown-timer .timer-inner { gap: 0.5rem 1rem; }
             #countdown-timer .time-value { font-size: 1.5rem; }
             #countdown-timer .timer-inner.row-2 {
@@ -904,16 +935,19 @@ $ogImageURL = $baseURL . '/assets/us.jpg';
       viewToggleBtn.addEventListener('click', () => {
         let isSingleColumn = gallery.classList.contains('single-column');
 
-        if (window.innerWidth <= 480) { // On very small screens, toggle between 1 and 2
-          gallery.classList.toggle('two-columns');
-          let isTwoCols = gallery.classList.contains('two-columns');
-          gridIcon.style.display = isTwoCols ? 'none' : 'block';
-          listIcon.style.display = isTwoCols ? 'block' : 'none';
-        } else { // On tablet, toggle between 2 and 1
+        if (window.innerWidth <= 480) { // On very small screens, toggle between 3 and 1
+          gallery.classList.toggle('two-columns'); // This class now maps to 1-column in CSS
+          let isOneCol = gallery.classList.contains('two-columns');
+
+          // UPDATED: Swapped the icon logic here to be correct
+          gridIcon.style.display = isOneCol ? 'block' : 'none'; // Show 3-col icon when 1-col is active
+          listIcon.style.display = isOneCol ? 'none' : 'block'; // Show 1-col icon when 3-col is active
+
+        } else { // On tablet/desktop, toggle between multi-column and 1
           gallery.classList.toggle('single-column');
           isSingleColumn = gallery.classList.contains('single-column');
-          gridIcon.style.display = isSingleColumn ? 'block' : 'none';
-          listIcon.style.display = isSingleColumn ? 'none' : 'block';
+          gridIcon.style.display = isSingleColumn ? 'block' : 'none'; // Show grid icon when 1-col is active
+          listIcon.style.display = isSingleColumn ? 'none' : 'block'; // Show list icon when grid is active
         }
       });
     }
