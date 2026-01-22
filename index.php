@@ -545,7 +545,7 @@ $ogImageURL = $baseURL . '/assets/us.jpg';
         </div>
     </div>
 
-    <div id="countdown-timer"></div>
+<!--    <div id="countdown-timer"></div>-->
 
     <div class="controls">
         <div class="left-controls">
@@ -602,11 +602,11 @@ $ogImageURL = $baseURL . '/assets/us.jpg';
 
 <div id="toastContainer"></div>
 
-<div class="big-day-modal" id="bigDayModal">
-    <div class="big-day-content">
-        The big day is finally here!
-    </div>
-</div>
+<!--<div class="big-day-modal" id="bigDayModal">-->
+<!--    <div class="big-day-content">-->
+<!--        The big day is finally here!-->
+<!--    </div>-->
+<!--</div>-->
 
 
 <div class="fixed-action-buttons-container">
@@ -1001,21 +1001,21 @@ $ogImageURL = $baseURL . '/assets/us.jpg';
 
 
     function updateCountdown() {
-      const now = new Date();
-      const target = new Date(countdownDate);
-      const distance = target - now;
-
-      if (distance < 0) {
-        clearInterval(countdownInterval);
-        startConfetti();
-        const bigDayModal = document.getElementById('bigDayModal');
-        bigDayModal.style.display = 'flex';
-        setTimeout(() => {
-          bigDayModal.style.display = 'none';
-          countdownElement.style.display = 'none';
-        }, 4000);
-        return;
-      }
+      // const now = new Date();
+      // const target = new Date(countdownDate);
+      // const distance = target - now;
+      //
+      // if (distance < 0) {
+      //   clearInterval(countdownInterval);
+      //   startConfetti();
+      //   const bigDayModal = document.getElementById('bigDayModal');
+      //   bigDayModal.style.display = 'flex';
+      //   setTimeout(() => {
+      //     bigDayModal.style.display = 'none';
+      //     countdownElement.style.display = 'none';
+      //   }, 4000);
+      //   return;
+      // }
 
       const totalDays = Math.floor(distance / (1000 * 60 * 60 * 24));
 
